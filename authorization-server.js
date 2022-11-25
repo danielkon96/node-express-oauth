@@ -51,7 +51,12 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
 app.get("/authorize", function(req, res) {
-	res.end(200)
+	let clientId = req.query("client_id")
+	if(clientId in clients) {
+		res.end(200)
+	} else {
+		res.status(401)
+	}
 })
 
 const server = app.listen(config.port, "localhost", function () {
